@@ -65,20 +65,14 @@ If some data is transferred correctly and then an error happens, the return valu
 Implementing this convention requires, of course, that your driver remember that the error has occurred so that it can return the error status in the future.
 
 The return value for read() is interpreted by the calling application program:
-1. If the value equals the count argument passed to the read system call, the requested
-number of bytes has been transferred. This is the optimal case.
+	1. If the value equals the count argument passed to the read system call, the requested number of bytes has been transferred. This is the optimal case.
 
-2. If the value is positive, but smaller than the count, then only part of the data has been
-transferred. This may happen for a number of reasons, depending on the device. Most
-often, the application program retries the read. For instance, if you read using the fread()
-function, the library function reissues the system call until completion of the requested
-data transfer. If the value is 0, end-of-file was reached.
+	2. If the value is positive, but smaller than the count, then only part of the data has been transferred. This may happen for a number of reasons, depending on the device. Most often, the application program retries the read. For instance, if you read using the fread() function, the library function reissues the system call until completion of the requested data transfer. If the value is 0, end-of-file was reached.
 
-3. A negative value means there was an error. The value specifies what the error was,
-according to <linux/errno.h>. Typical values returned on error include -EINTR (interrupted
-system call) or -EFAULT (bad address).
+	3. A negative value means there was an error. The value specifies what the error was, according to <linux/errno.h>. Typical values returned on error include -EINTR (interrupted system call) or -EFAULT (bad address).
 
-In Linux, every device is identified by two numbers: a major number and a minor number. These numbers can be seen by invoking ls -l /dev on the host PC. Every device driver registers its major number with the kernel and is completely responsible for managing its minor numbers. 
+- Major and Minor device number -
+	In Linux, every device is identified by two numbers: a major number and a minor number. These numbers can be seen by invoking ls -l /dev on the host PC. Every device driver registers its major number with the kernel and is completely responsible for managing its minor numbers. 
 
 When accessing a device file, the major number selects which device driver is being called to perform the input/output operation. The major number is used by the kernel to identify the correct device driver when the device is accessed. 
 
@@ -87,13 +81,13 @@ ports. The same driver can be used to control all the UARTs, but each physical U
 
 
 - LAB 4.1: "helloworld character" module -
-
-Linux systems in general traditionally used a static device creation method, whereby a great number of device nodes were created under /dev (sometimes literally thousands of nodes), regardless of whether or not the corresponding hardware devices actually existed. This was typically done via a MAKEDEV script, which contains a number of calls to the mknod program with the relevant major and minor device numbers for every possible device that might exist in the
-world.
+Linux systems in general traditionally used a static device creation method, whereby a great number of device nodes were created under /dev (sometimes literally thousands of nodes), regardless of whether or not the corresponding hardware devices actually existed. This was typically done via a MAKEDEV script, which contains a number of calls to the mknod program with the relevant major and minor device numbers for every possible device that might exist in the world.
 
 This is not the right approach to create device nodes nowadays, as you have to create a block or character device file entry manually and associate it with the device, as shown in the Raspberry Pi ́s terminal command line below:
 
   $ mknod /dev/mydev c 202 108
+
+We will develop this driver using the static method, purely for education purposes.
 
 Despite all this, you will develop your next driver using this static method, purely for educational purposes, and you will see in the few next drivers a better way to create the device nodes by using devtmpfs and the miscellaneous framework.
 
@@ -106,18 +100,22 @@ Finally, you will handle file operations in the driver to service requests from 
 In the kernel, a character-type device is represented by struct cdev, a structure used to register it in the
 system.
 
+
+
 - Registration and unregistration of character devices -
 
 The registration/unregistration of a character device is made by specifying the major and minor.
 
-The dev_t type is used to keep the identifiers of a device (both major and minor) and can be obtained by using the MKDEV macro.
 
-For the static assignment and unallocation of device identifiers, the register_chrdev_region() and unregister_chrdev_region() functions are used. The first device identifier is obtained by using the MKDEV macro.
+The *dev_t* type is used to keep the identifiers of a device (both major and minor) and can be obtained by using the MKDEV macro.
+
+For the static assignment and unallocation of device identifiers, the *register_chrdev_region()* and *unregister_chrdev_region()* functions are used. The first device identifier is obtained by using the MKDEV macro.
 
   int register_chrdev_region(dev_t first, unsigned int count, char *name);
+
   void unregister_chrdev_region(dev_t first, unsigned int count);
 
-It is recommended that device identifiers be dynamically assigned by using the alloc_chrdev_ region() function. This function allocates a range of char device numbers. The major number will be chosen dynamically and returned (along with the first minor number) in dev. This function returns
+It is recommended that device identifiers be dynamically assigned by using the *alloc_chrdev_region()* function. This function allocates a range of char device numbers. The major number will be chosen dynamically and returned (along with the first minor number) in dev. This function returns
 zero or a negative error code.
 
   int alloc_chrdev_region(dev_t* dev, unsigned baseminor, unsigned count, const char* name);
@@ -250,6 +248,45 @@ The main code sections of the driver will now be described:
 
 $ Make
 
-# To inse                                                                                                                                                                                                                                                                                                                                                                                          
+# To insert the kernel module.
 $ insmod helloworld-chardriver.ko
+
+$ dmesg
+
+	-> hello world char driver init!
+
+See the allocated "my_char_device". The device mydev is not created under /dev yet:
+
+$ cat /proc/devices
+
+Character devices:
+1 mem
+4 /dev/vc/0
+4 tty
+4 ttyS
+5 /dev/tty
+5 /dev/console
+[...]
+202 my_char_device
+[...]
+
+$ /home/pi# ls –l /dev/
+Create mydev under /dev using mknod, and verify its creation:
+
+$ mknod /dev/mydev c 202 0
+$ ls -l /dev/mydev
+-> crw-r--r-- 1 root root 202, 0 Apr 8 19:00 /dev/mydev
+
+Run the application ioctl_test:
+$ ./ioctl_test
+$ dmesg
+my_dev_open() is called.
+my_dev_ioctl() is called. cmd = 100, arg = 110
+my_dev_close() is called.
+
+# Remove the module:
+$ rmmod helloworld-chardriver.ko
+$ dmesg
+-> hello world char driver exit!
+
 

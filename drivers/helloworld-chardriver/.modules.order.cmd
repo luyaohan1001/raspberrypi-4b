@@ -1,0 +1,1 @@
+cmd_/home/pi/Projects/raspi-programming/drivers/helloworld-chardriver/modules.order := {   echo /home/pi/Projects/raspi-programming/drivers/helloworld-chardriver/helloworld-chardriver.ko; :; } | awk '!x[$$0]++' - > /home/pi/Projects/raspi-programming/drivers/helloworld-chardriver/modules.order

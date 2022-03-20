@@ -1,0 +1,5 @@
+# To load module
+	$ insmod helloworld-withparam.ko parameter num = 5
+
+# To remove module
+	$ rmmod helloworld-withparam.ko 

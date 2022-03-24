@@ -1,0 +1,1 @@
+cmd_/home/pi/Projects/raspi-programming/drivers/hellokeys-platformdriver/hellokeys-platformdriver.mod := { echo  /home/pi/Projects/raspi-programming/drivers/hellokeys-platformdriver/hellokeys-platformdriver.o;  echo; } > /home/pi/Projects/raspi-programming/drivers/hellokeys-platformdriver/hellokeys-platformdriver.mod

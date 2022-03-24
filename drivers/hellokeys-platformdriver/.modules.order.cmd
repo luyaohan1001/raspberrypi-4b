@@ -1,0 +1,1 @@
+cmd_/home/pi/Projects/raspi-programming/drivers/hellokeys-platformdriver/modules.order := {   echo /home/pi/Projects/raspi-programming/drivers/hellokeys-platformdriver/hellokeys-platformdriver.ko; :; } | awk '!x[$$0]++' - > /home/pi/Projects/raspi-programming/drivers/hellokeys-platformdriver/modules.order

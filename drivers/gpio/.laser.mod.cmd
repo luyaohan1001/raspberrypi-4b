@@ -1,0 +1,1 @@
+cmd_/home/pi/Projects/raspi-programming/drivers/gpio/laser.mod := { echo  /home/pi/Projects/raspi-programming/drivers/gpio/laser.o;  echo; } > /home/pi/Projects/raspi-programming/drivers/gpio/laser.mod

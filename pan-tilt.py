@@ -6,7 +6,7 @@ import numpy as np
 LASER_PINOUT = 13
 FRONTLIGHT_PINOUT = 21
 
-H_SERVO = 14
+H_SERVO = 18
 V_SERVO = 15
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(H_SERVO, GPIO.OUT)

@@ -1,0 +1,1 @@
+cmd_/home/pi/Projects/raspi-programming/drivers/helloworld-classdriver/helloworld-classdriver.mod := { echo  /home/pi/Projects/raspi-programming/drivers/helloworld-classdriver/helloworld-classdriver.o;  echo; } > /home/pi/Projects/raspi-programming/drivers/helloworld-classdriver/helloworld-classdriver.mod

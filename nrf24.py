@@ -8,10 +8,13 @@ RX_ADR_WIDTH = 5   	    # 5 uints RX address width
 TX_PLOAD_WIDTH = 32  	# 20 uints TX payload
 RX_PLOAD_WIDTH = 32  	# 20 uints TX payload
 
-TX_ADDRESS   = [0x09,0x09,0x09,0x09,0x09]	#本地地址
-RX_ADDRESS   = [0x09,0x09,0x09,0x09,0x09]	#接收地址
-READ_REG     = 0x00  	                    # 读寄存器指令
-WRITE_REG    = 0x20 	                    # 写寄存器指令
+#TX_ADDRESS   = 0x0909090909	#本地地址
+#RX_ADDRESS   = 0x0909090909	#接收地址
+
+TX_ADDRESS   = 0x0	#本地地址
+RX_ADDRESS   = 0x0	#接收地址
+R_REGISTER_MASK   = 0x00  	                    # 000A AAAA
+W_REGISTER_MASK   = 0x20 	                    # 001A AAAA
 RD_RX_PLOAD  = 0x61  	                    # 读取接收数据指令
 WR_TX_PLOAD  = 0xA0  	                    # 写待发数据指令
 FLUSH_TX     = 0xE1 	                    # 冲洗发送 FIFO指令
@@ -19,6 +22,7 @@ FLUSH_RX     = 0xE2  	                    # 冲洗接收 FIFO指令
 REUSE_TX_PL  = 0xE3  	                    # 定义重复装载数据指令
 NOP          = 0xFF  	                    # 保留
 #*************************************SPI(nRF24L01)寄存器地址****************************************************
+# Mnemonic   Address  Description
 CONFIG       = 0x00  # 配置收发状态，CRC校验模式以及收发状态响应方式
 EN_AA        = 0x01  # 自动应答功能设置
 EN_RXADDR    = 0x02  # 可用信道设置
@@ -55,39 +59,30 @@ SCK  =  35
 CE   =  37
 IRQ  =  32
 
+# Pin Wiggling Macros:
 def SPI_CS_1(): 
     GPIO.output(CSN, GPIO.LOW)
-
 def SPI_CS_0():
     GPIO.output(CSN, GPIO.HIGH)
-
 def SPI_SCK_1():
     GPIO.output(SCK, GPIO.HIGH)
-
 def SPI_SCK_0():
     GPIO.output(SCK, GPIO.LOW)
-
 def SPI_MOSI_1():
     GPIO.output(MOSI, GPIO.HIGH)
-
 def SPI_MOSI_0():
     GPIO.output(MOSI, GPIO.LOW)
-
 def SPI_CE_1():
     GPIO.output(CE, GPIO.HIGH)
-
 def SPI_CE_0():
     GPIO.output(CE, GPIO.LOW)
-
-
 def SPI_READ_MISO():
   return GPIO.input(MISO)
-
 def SPI_READ_IRQ():
   return GPIO.input(IRQ)
 
 
-def SPI_IoInit(): 
+def gpio_init(): 
   GPIO.setmode(GPIO.BOARD)
   GPIO.setwarnings(False)
   Pinlist = [29,31,35,37,11]
@@ -95,11 +90,9 @@ def SPI_IoInit():
   Pinlist_Input = [33,32]
   GPIO.setup(Pinlist_Input, GPIO.IN)
 
-  SPI_CS_1()
+  SPI_CS_0()
   SPI_SCK_0()
 
-def spi_delay():
-	time.sleep(0.001)
 
 
 # Brief: Time Sequence for SPI write single byte.
@@ -108,18 +101,18 @@ def spi_delay():
 # CSN ````\___________________________________________________________________________________________________/````````
 # MOSI______|C7|__|C6|__|C5|__|C4|__|C3|__|C2|__|C1|__|C0|______|D7|__|D6|__|D5|__|D4|__|D3|__|D2|__|D1|__|D0|
 #           ^     ^     ^     ^     ^     ^     ^     ^         ^     ^     ^     ^     ^     ^     ^     ^  
-# SCK ______/``\__/``\__/``\__/``\__/``\__/``\__/``\__/``\______/``\__/``\__/``\__/``\__/``\__/``\__/``\__/``\____________
-# MISO______|S7|__|S6|__|S5|__|S4|__|S3|__|S2|__|S1|__|S0|______XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX________
+# SCK ______/``\__/``\__/``\__/``\__/``\__/``\__/``\__/``\______/``\__/``\__/``\__/``\__/``\__/``\__/``\__/``\________
+# MISO______|S7|__|S6|__|S5|__|S4|__|S3|__|S2|__|S1|__|S0|______XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX_________
 #
 # Pulse#     1     2     3     4     5     6     7     8         9     10    11    12    13    14   15     16
 #
 #
-def SPI_WriteByte(txData):
+def gpio_clockout_8_bits(txData):
   spi_delay();
   for i in range (0,8):
       SPI_SCK_0();
       spi_delay()
-      if(txData & 0x80): # MSB on each byte first
+      if(txData & 0x80): # MSB on each byte  
           SPI_MOSI_1()
       else:
           SPI_MOSI_0()
@@ -138,7 +131,7 @@ def SPI_WriteByte(txData):
 # SCK ______/``\__/``\__/``\__/``\__/``\__/``\__/``\__/``\______/``\__/``\__/``\__/``\__/``\__/``\__/``\__/``\____________
 # MISO______|S7|__|S6|__|S5|__|S4|__|S3|__|S2|__|S1|__|S0|______|D0|__|D1|__|D2|__|D3|__|D4|__|D5|__|D6|__|D7|________ #
 # Pulse#     1     2     3     4     5     6     7     8         9     10    11    12    13    14   15     16
-def SPI_ReadByte():
+def gpio_clockin_8_bits():
   rxData = 0
   spi_delay();
   for i in range (0,8):
@@ -154,38 +147,95 @@ def SPI_ReadByte():
   SPI_SCK_0()
   return rxData
 
-def SPI_WR_Reg(reg, val):
+  
+def spi_delay():
+	time.sleep(0.001)
+
+def spi_write_register(reg, val, num_bytes=1):
+  # Select chip
   SPI_CS_1()
   SPI_CE_1()
-  SPI_WriteByte(reg)
-  SPI_WriteByte(val)
+
+  # Write chip register 
+  gpio_clockout_8_bits(reg)
+  # Write value
+  for i in range(0, num_bytes):
+    writing_byte = val & 0xff
+    gpio_clockout_8_bits(writing_byte)
+    val = val >> 8
+
+  # Deselect chip
   SPI_CS_0()
   SPI_CE_0()
 
-def SPI_RD_Reg(reg):
+def spi_read_register(reg, num_bytes=1):
+  ret = 0
+
+  # Select chip
   SPI_CS_1()
   SPI_CE_1()
-  SPI_WriteByte(reg)
-  status =  SPI_ReadByte()
+
+  # Write register address to read.
+  gpio_clockout_8_bits(reg)
+  # Read value
+  for i in range(0, num_bytes):
+    ret = ret << 8; 
+    ret |= gpio_clockin_8_bits()
+
+  # Deselect chip
   SPI_CS_0()
   SPI_CE_0()
-  return status
+  return ret
 
-def Init_NRF24L01():
-    SPI_WR_Reg(EN_AA, 0x01)      #  频道0自动	ACK应答允许
-    SPI_WR_Reg(EN_RXADDR, 0x01)  #  允许接收地址只有频道0，如果需要多频道可以参考Page21
-    SPI_WR_Reg(RF_CH, 40)        #   设置信道工作为2.4GHZ，收发必须一致
-    SPI_WR_Reg(RX_PW_P0, RX_PLOAD_WIDTH) #设置接收数据长度，本次设置为32字节
-    SPI_WR_Reg(RF_SETUP, 0x0f)   		#设置发射速率为1MHZ，发射功率为最大值0dB
+
+def nrf24_configure():
+    # configure TX address
+    spi_write_register( W_REGISTER_MASK + TX_ADDR, TX_ADDRESS, num_bytes=5 )      #  频道0自动	ACK应答允许
+    tx_addr = spi_read_register(R_REGISTER_MASK + TX_ADDR, num_bytes=5)
+    print(hex(tx_addr))
+
+
+    # configure RX address for channel 0.
+    spi_write_register( W_REGISTER_MASK + RX_ADDR_P0, RX_ADDRESS, num_bytes=5 )      #  频道0自动	ACK应答允许
+    rx_addr = spi_read_register(R_REGISTER_MASK + RX_ADDR_P0, num_bytes=5)
+    print(hex(rx_addr))
+
+    # configure enable auto acknowledge on channel 0.
+    spi_write_register(W_REGISTER_MASK+EN_AA, 0x0f, num_bytes=1)      #  频道0自动	ACK应答允许
+    enaa = spi_read_register(R_REGISTER_MASK + EN_AA, num_bytes=1)
+    print(bin(enaa))
+
+    # configure enable RX addresses on channel 0.
+    spi_write_register(W_REGISTER_MASK+EN_RXADDR, 0x01, num_bytes=1)  #  允许接收地址只有频道0，如果需要多频道可以参考Page21
+    en_rxaddr = spi_read_register(R_REGISTER_MASK + EN_RXADDR, 1)
+    print(bin(en_rxaddr))
+
+    # spi_write_register(W_REGISTER_MASK + RF_CH, 40)        #   设置信道工作为2.4GHZ，收发必须一致
+
+    # spi_write_register(W_REGISTER_MASK + RX_PW_P0, RX_PLOAD_WIDTH) #设置接收数据长度，本次设置为32字节
+
+    spi_write_register(W_REGISTER_MASK + RF_SETUP, 0x0f)   		#设置发射速率为1MHZ，发射功率为最大值0dB
+
+    # set rx mode
+    spi_write_register(W_REGISTER_MASK + CONFIG, 0x03)      # IRQ收发完成中断响应，16位CRC  ，主接收
+    config = spi_read_register(R_REGISTER_MASK + CONFIG, 1)
+    print(bin(config))
     return 0
 
-STATUS       = 0x07  # 状态寄存器
-SPI_IoInit()
-status=SPI_RD_Reg(STATUS)
-print(status)
-#
-# Init_NRF24L01()
-enaa=SPI_RD_Reg(0x01)
-print(enaa)
+def nrf24_recive_packet():
+    status = spi_read_register(R_REGISTER_MASK + STATUS, num_bytes=1)
+    #print("status: ")
+    #print(bin(status))
+    if (status & 0x40):
+       packet = spi_read_register(R_REGISTER_MASK + RD_RX_PLOAD, TX_PLOAD_WIDTH)
+       spi_write_register(W_REGISTER_MASK + STATUS, status, num_bytes=1)
+       print("packet is: " + str(packet))
+
+# main
+gpio_init()
+
+nrf24_configure()
+while True:
+  nrf24_recive_packet()
 
 

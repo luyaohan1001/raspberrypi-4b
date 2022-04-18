@@ -11,8 +11,8 @@ RX_PLOAD_WIDTH = 32  	# 20 uints TX payload
 #TX_ADDRESS   = 0x0909090909	#本地地址
 #RX_ADDRESS   = 0x0909090909	#接收地址
 
-TX_ADDRESS   = 0x0	#本地地址
-RX_ADDRESS   = 0x0	#接收地址
+TX_ADDRESS   = 0xE7E7E7E7E7	#本地地址
+RX_ADDRESS   = 0xE7E7E7E7E7	#接收地址
 R_REGISTER_MASK   = 0x00  	                    # 000A AAAA
 W_REGISTER_MASK   = 0x20 	                    # 001A AAAA
 RD_RX_PLOAD  = 0x61  	                    # 读取接收数据指令
@@ -154,8 +154,6 @@ def spi_delay():
 def spi_write_register(reg, val, num_bytes=1):
   # Select chip
   SPI_CS_1()
-  SPI_CE_1()
-
   # Write chip register 
   gpio_clockout_8_bits(reg)
   # Write value
@@ -166,15 +164,12 @@ def spi_write_register(reg, val, num_bytes=1):
 
   # Deselect chip
   SPI_CS_0()
-  SPI_CE_0()
 
 def spi_read_register(reg, num_bytes=1):
   ret = 0
 
   # Select chip
   SPI_CS_1()
-  SPI_CE_1()
-
   # Write register address to read.
   gpio_clockout_8_bits(reg)
   # Read value
@@ -184,57 +179,53 @@ def spi_read_register(reg, num_bytes=1):
 
   # Deselect chip
   SPI_CS_0()
-  SPI_CE_0()
   return ret
 
 
-def nrf24_configure():
-    # configure TX address
-    spi_write_register( W_REGISTER_MASK + TX_ADDR, TX_ADDRESS, num_bytes=5 )      #  频道0自动	ACK应答允许
-    tx_addr = spi_read_register(R_REGISTER_MASK + TX_ADDR, num_bytes=5)
-    print(hex(tx_addr))
+def nrf24_poweron_self_test():
+    config = spi_read_register(R_REGISTER_MASK + CONFIG, num_bytes=1)
+    if (config != 0x08):
+      print("(!) Critical Error: NRF24 CONFIG register should have reset value of 0x08. Re-plug in nrf24 on the 3.3V power wire.")
+      print("CONFIG: " + hex(config))
+    else:
+      print("nrf24 poweron self test passed.")
 
-
-    # configure RX address for channel 0.
-    spi_write_register( W_REGISTER_MASK + RX_ADDR_P0, RX_ADDRESS, num_bytes=5 )      #  频道0自动	ACK应答允许
-    rx_addr = spi_read_register(R_REGISTER_MASK + RX_ADDR_P0, num_bytes=5)
-    print(hex(rx_addr))
-
-    # configure enable auto acknowledge on channel 0.
-    spi_write_register(W_REGISTER_MASK+EN_AA, 0x0f, num_bytes=1)      #  频道0自动	ACK应答允许
-    enaa = spi_read_register(R_REGISTER_MASK + EN_AA, num_bytes=1)
-    print(bin(enaa))
-
-    # configure enable RX addresses on channel 0.
+def nrf24_rx_configure():
+    SPI_CE_0();
+    #spi_write_register(W_REGISTER_MASK + TX_ADDR, TX_ADDRESS, num_bytes=5 )      #  频道0自动	ACK应答允许
+    #spi_write_register(W_REGISTER_MASK + RX_ADDR_P0, RX_ADDRESS, num_bytes=5 )      #  频道0自动	ACK应答允许
+    spi_write_register(W_REGISTER_MASK+EN_AA, 0x00, num_bytes=1)      #  频道0自动	ACK应答允许
     spi_write_register(W_REGISTER_MASK+EN_RXADDR, 0x01, num_bytes=1)  #  允许接收地址只有频道0，如果需要多频道可以参考Page21
-    en_rxaddr = spi_read_register(R_REGISTER_MASK + EN_RXADDR, 1)
-    print(bin(en_rxaddr))
+    spi_write_register(W_REGISTER_MASK + CONFIG, 0x0F)     
 
-    # spi_write_register(W_REGISTER_MASK + RF_CH, 40)        #   设置信道工作为2.4GHZ，收发必须一致
-
-    # spi_write_register(W_REGISTER_MASK + RX_PW_P0, RX_PLOAD_WIDTH) #设置接收数据长度，本次设置为32字节
-
-    spi_write_register(W_REGISTER_MASK + RF_SETUP, 0x0f)   		#设置发射速率为1MHZ，发射功率为最大值0dB
-
-    # set rx mode
-    spi_write_register(W_REGISTER_MASK + CONFIG, 0x03)      # IRQ收发完成中断响应，16位CRC  ，主接收
-    config = spi_read_register(R_REGISTER_MASK + CONFIG, 1)
-    print(bin(config))
+    rf_setup = spi_read_register(R_REGISTER_MASK + RF_SETUP, 1)
+    print("rf_setup: " + str(hex(rf_setup)))
+    SPI_CE_1();
+    
     return 0
 
 def nrf24_recive_packet():
     status = spi_read_register(R_REGISTER_MASK + STATUS, num_bytes=1)
-    #print("status: ")
-    #print(bin(status))
+    # SPI_CE_0()
+    fifo_status = spi_read_register(R_REGISTER_MASK + FIFO_STATUS, num_bytes=1)
+    # print("status: " + bin(status))
+    #print("fifo status: " + bin(fifo_status))
+
     if (status & 0x40):
-       packet = spi_read_register(R_REGISTER_MASK + RD_RX_PLOAD, TX_PLOAD_WIDTH)
-       spi_write_register(W_REGISTER_MASK + STATUS, status, num_bytes=1)
+
+       packet = spi_read_register(RD_RX_PLOAD, 4)
        print("packet is: " + str(packet))
+       print(packet)
+       spi_write_register(W_REGISTER_MASK + STATUS, status, num_bytes=1)
+   
+    SPI_CE_1()
+
 
 # main
 gpio_init()
+nrf24_poweron_self_test()
+nrf24_rx_configure()
 
-nrf24_configure()
 while True:
   nrf24_recive_packet()
 

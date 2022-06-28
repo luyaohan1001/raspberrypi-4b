@@ -1,1 +1,0 @@
-cmd_/home/pi/Projects/raspi-programming/drivers/helloworld/Module.symvers := sed 's/ko$$/o/' /home/pi/Projects/raspi-programming/drivers/helloworld/modules.order | scripts/mod/modpost -m -a   -o /home/pi/Projects/raspi-programming/drivers/helloworld/Module.symvers -e -i Module.symvers   -T -

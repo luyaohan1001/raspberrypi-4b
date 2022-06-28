@@ -1,0 +1,6 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/pi/Projects/raspberrypi-4b/drivers'
+make: Leaving directory '/home/pi/Projects/raspberrypi-4b/drivers'
+ 
+make: *** No targets specified and no makefile found.  Stop.
+

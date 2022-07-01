@@ -1,1 +1,1 @@
-cmd_/home/pi/Projects/raspi-programming/drivers/gpio/modules.order := {   echo /home/pi/Projects/raspi-programming/drivers/gpio/laser.ko; :; } | awk '!x[$$0]++' - > /home/pi/Projects/raspi-programming/drivers/gpio/modules.order
+cmd_/home/luyaohan1001/Projects/raspberrypi-4b/drivers/gpio/modules.order := {   echo /home/luyaohan1001/Projects/raspberrypi-4b/drivers/gpio/laser.ko; :; } | awk '!x[$$0]++' - > /home/luyaohan1001/Projects/raspberrypi-4b/drivers/gpio/modules.order

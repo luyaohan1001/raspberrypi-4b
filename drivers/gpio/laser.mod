@@ -1,2 +1,2 @@
-/home/pi/Projects/raspi-programming/drivers/gpio/laser.o
+/home/luyaohan1001/Projects/raspberrypi-4b/drivers/gpio/laser.o
 

@@ -1,0 +1,78 @@
+\hypertarget{led_8c}{}\doxysection{led.\+c File Reference}
+\label{led_8c}\index{led.c@{led.c}}
+
+
+A kernel module for LED （\+GPIO）toggle.  
+
+
+{\ttfamily \#include $<$linux/kernel.\+h$>$}\newline
+{\ttfamily \#include $<$linux/init.\+h$>$}\newline
+{\ttfamily \#include $<$linux/module.\+h$>$}\newline
+{\ttfamily \#include $<$linux/kdev\+\_\+t.\+h$>$}\newline
+{\ttfamily \#include $<$linux/fs.\+h$>$}\newline
+{\ttfamily \#include $<$linux/cdev.\+h$>$}\newline
+{\ttfamily \#include $<$linux/device.\+h$>$}\newline
+{\ttfamily \#include $<$linux/delay.\+h$>$}\newline
+{\ttfamily \#include $<$linux/uaccess.\+h$>$}\newline
+{\ttfamily \#include $<$linux/gpio.\+h$>$}\newline
+Include dependency graph for led.\+c\+:
+% FIG 0
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{led_8c_ae9a3d587b537152fb8391eb342cf7c98}{GPIO\+\_\+21}}~(21)
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{led_8c_a27c78649ca472f74681d4fc843b77909}\label{led_8c_a27c78649ca472f74681d4fc843b77909}} 
+{\bfseries module\+\_\+init} (laser\+\_\+driver\+\_\+init)
+\item 
+\mbox{\Hypertarget{led_8c_abf2bcc9138b5ed3fc59dbf61e904eab8}\label{led_8c_abf2bcc9138b5ed3fc59dbf61e904eab8}} 
+{\bfseries module\+\_\+exit} (laser\+\_\+driver\+\_\+exit)
+\item 
+\mbox{\Hypertarget{led_8c_ad94b36675e7eb067ea3ce6ff9e244a44}\label{led_8c_ad94b36675e7eb067ea3ce6ff9e244a44}} 
+{\bfseries MODULE\+\_\+\+LICENSE} (\char`\"{}GPL\char`\"{})
+\item 
+\mbox{\Hypertarget{led_8c_a25a0a950eaa6743f4c92c08d73f0512f}\label{led_8c_a25a0a950eaa6743f4c92c08d73f0512f}} 
+{\bfseries MODULE\+\_\+\+AUTHOR} (\char`\"{}Luyao Han $<$luyaohan1001@gmail.\+com$>$\char`\"{})
+\item 
+\mbox{\Hypertarget{led_8c_ab697ede693033abce3cf0fe563b2f1b1}\label{led_8c_ab697ede693033abce3cf0fe563b2f1b1}} 
+{\bfseries MODULE\+\_\+\+DESCRIPTION} (\char`\"{}A simple device driver -\/ GPIO Driver\char`\"{})
+\item 
+\mbox{\Hypertarget{led_8c_a9366ad60b2dc94fc41ff2a81c475f8d9}\label{led_8c_a9366ad60b2dc94fc41ff2a81c475f8d9}} 
+{\bfseries MODULE\+\_\+\+VERSION} (\char`\"{}1.\+32\char`\"{})
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{led_8c_a8910285a0352a5c710e65ec9ecbe32a1}\label{led_8c_a8910285a0352a5c710e65ec9ecbe32a1}} 
+dev\+\_\+t {\bfseries dev} = 0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A kernel module for LED （\+GPIO）toggle. 
+
+\begin{DoxyAuthor}{Author}
+Luyao Han (\href{mailto:luyaohan1001@gmail.com}{\texttt{ luyaohan1001@gmail.\+com}}) 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+1 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2022-\/06-\/28
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2022 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{led_8c_ae9a3d587b537152fb8391eb342cf7c98}\label{led_8c_ae9a3d587b537152fb8391eb342cf7c98}} 
+\index{led.c@{led.c}!GPIO\_21@{GPIO\_21}}
+\index{GPIO\_21@{GPIO\_21}!led.c@{led.c}}
+\doxysubsubsection{\texorpdfstring{GPIO\_21}{GPIO\_21}}
+{\footnotesize\ttfamily \#define GPIO\+\_\+21~(21)}
+
+Macros 

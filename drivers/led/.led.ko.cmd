@@ -1,0 +1,1 @@
+cmd_/home/luyaohan1001/Projects/raspberrypi-4b/drivers/led/led.ko := arm-linux-gnueabihf-ld -r -EL --build-id=sha1  -T scripts/module.lds -o /home/luyaohan1001/Projects/raspberrypi-4b/drivers/led/led.ko /home/luyaohan1001/Projects/raspberrypi-4b/drivers/led/led.o /home/luyaohan1001/Projects/raspberrypi-4b/drivers/led/led.mod.o;  true

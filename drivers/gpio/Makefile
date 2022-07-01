@@ -1,6 +1,6 @@
 obj-m := laser.o
 
-KERNEL_DIR ?= /usr/src/linux-headers-5.10.103-v7l+/
+KERNEL_DIR ?= /usr/src/linux-headers-5.15.32-v7l+/
 
 
 all:

@@ -1,6 +1,6 @@
 obj-m := helloworld.o
 
-KERNEL_DIR ?= /usr/src/linux-headers-5.15.32-v8+/
+KERNEL_DIR ?= /usr/src/linux-headers-5.15.32-v7l+/
 
 
 all:

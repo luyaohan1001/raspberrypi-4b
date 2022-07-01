@@ -1,1 +1,1 @@
-cmd_/home/pi/Projects/raspi-programming/drivers/gpio/Module.symvers := sed 's/ko$$/o/' /home/pi/Projects/raspi-programming/drivers/gpio/modules.order | scripts/mod/modpost -m -a   -o /home/pi/Projects/raspi-programming/drivers/gpio/Module.symvers -e -i Module.symvers   -T -
+cmd_/home/luyaohan1001/Projects/raspberrypi-4b/drivers/gpio/Module.symvers := sed 's/\.ko$$/\.o/' /home/luyaohan1001/Projects/raspberrypi-4b/drivers/gpio/modules.order | scripts/mod/modpost -m -a  -o /home/luyaohan1001/Projects/raspberrypi-4b/drivers/gpio/Module.symvers -e -i Module.symvers   -T -

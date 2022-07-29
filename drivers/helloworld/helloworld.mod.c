@@ -1,12 +1,10 @@
 #include <linux/module.h>
 #define INCLUDE_VERMAGIC
 #include <linux/build-salt.h>
-#include <linux/elfnote-lto.h>
 #include <linux/vermagic.h>
 #include <linux/compiler.h>
 
 BUILD_SALT;
-BUILD_LTO_INFO;
 
 MODULE_INFO(vermagic, VERMAGIC_STRING);
 MODULE_INFO(name, KBUILD_MODNAME);
@@ -27,12 +25,12 @@ MODULE_INFO(retpoline, "Y");
 
 static const struct modversion_info ____versions[]
 __used __section("__versions") = {
-	{ 0x38f431f2, "module_layout" },
-	{ 0x92997ed8, "_printk" },
+	{ 0xcaec5711, "module_layout" },
+	{ 0xc5850110, "printk" },
 	{ 0xb1ad28e0, "__gnu_mcount_nc" },
 };
 
 MODULE_INFO(depends, "");
 
 
-MODULE_INFO(srcversion, "07CC36D84B266C5EBCB926E");
+MODULE_INFO(srcversion, "38C4E9B3E69C4D38EA047BF");

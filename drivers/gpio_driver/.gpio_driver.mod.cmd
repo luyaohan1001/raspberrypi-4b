@@ -1,0 +1,1 @@
+cmd_/home/pi/Projects/raspberrypi-4b/drivers/gpio_driver/gpio_driver.mod := { echo  /home/pi/Projects/raspberrypi-4b/drivers/gpio_driver/gpio_driver.o;  echo; } > /home/pi/Projects/raspberrypi-4b/drivers/gpio_driver/gpio_driver.mod

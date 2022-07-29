@@ -1,8 +1,10 @@
-cmd_/home/pi/Projects/raspberrypi-4b/drivers/helloworld/helloworld.o := arm-linux-gnueabihf-gcc -Wp,-MMD,/home/pi/Projects/raspberrypi-4b/drivers/helloworld/.helloworld.o.d  -nostdinc -isystem /usr/lib/gcc/arm-linux-gnueabihf/8/include -I./arch/arm/include -I./arch/arm/include/generated  -I./include -I./arch/arm/include/uapi -I./arch/arm/include/generated/uapi -I./include/uapi -I./include/generated/uapi -include ./include/linux/kconfig.h -include ./include/linux/compiler_types.h -D__KERNEL__ -mlittle-endian -fmacro-prefix-map=./= -Wall -Wundef -Werror=strict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common -fshort-wchar -fno-PIE -Werror=implicit-function-declaration -Werror=implicit-int -Werror=return-type -Wno-format-security -std=gnu89 -fno-dwarf2-cfi-asm -fno-omit-frame-pointer -mapcs -mno-sched-prolog -fno-ipa-sra -mabi=aapcs-linux -mfpu=vfp -marm -Wa,-mno-warn-deprecated -D__LINUX_ARM_ARCH__=7 -march=armv7-a -msoft-float -Uarm -fno-delete-null-pointer-checks -Wno-frame-address -Wno-format-truncation -Wno-format-overflow -O2 --param=allow-store-data-races=0 -Wframe-larger-than=1024 -fstack-protector-strong -Wimplicit-fallthrough -Wno-unused-but-set-variable -Wno-unused-const-variable -fno-omit-frame-pointer -fno-optimize-sibling-calls -pg -Wdeclaration-after-statement -Wvla -Wno-pointer-sign -Wno-stringop-truncation -Wno-array-bounds -Wno-stringop-overflow -Wno-restrict -Wno-maybe-uninitialized -fno-strict-overflow -fno-stack-check -fconserve-stack -Werror=date-time -Werror=incompatible-pointer-types -Werror=designated-init -Wno-packed-not-aligned  -DMODULE  -DKBUILD_BASENAME='"helloworld"' -DKBUILD_MODNAME='"helloworld"' -c -o /home/pi/Projects/raspberrypi-4b/drivers/helloworld/helloworld.o /home/pi/Projects/raspberrypi-4b/drivers/helloworld/helloworld.c
+cmd_/home/pi/Projects/raspberrypi-4b/drivers/gpio_driver/gpio_driver.mod.o := arm-linux-gnueabihf-gcc -Wp,-MMD,/home/pi/Projects/raspberrypi-4b/drivers/gpio_driver/.gpio_driver.mod.o.d  -nostdinc -isystem /usr/lib/gcc/arm-linux-gnueabihf/8/include -I./arch/arm/include -I./arch/arm/include/generated  -I./include -I./arch/arm/include/uapi -I./arch/arm/include/generated/uapi -I./include/uapi -I./include/generated/uapi -include ./include/linux/kconfig.h -include ./include/linux/compiler_types.h -D__KERNEL__ -mlittle-endian -fmacro-prefix-map=./= -Wall -Wundef -Werror=strict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common -fshort-wchar -fno-PIE -Werror=implicit-function-declaration -Werror=implicit-int -Werror=return-type -Wno-format-security -std=gnu89 -fno-dwarf2-cfi-asm -fno-omit-frame-pointer -mapcs -mno-sched-prolog -fno-ipa-sra -mabi=aapcs-linux -mfpu=vfp -marm -Wa,-mno-warn-deprecated -D__LINUX_ARM_ARCH__=7 -march=armv7-a -msoft-float -Uarm -fno-delete-null-pointer-checks -Wno-frame-address -Wno-format-truncation -Wno-format-overflow -O2 --param=allow-store-data-races=0 -Wframe-larger-than=1024 -fstack-protector-strong -Wimplicit-fallthrough -Wno-unused-but-set-variable -Wno-unused-const-variable -fno-omit-frame-pointer -fno-optimize-sibling-calls -pg -Wdeclaration-after-statement -Wvla -Wno-pointer-sign -Wno-stringop-truncation -Wno-array-bounds -Wno-stringop-overflow -Wno-restrict -Wno-maybe-uninitialized -fno-strict-overflow -fno-stack-check -fconserve-stack -Werror=date-time -Werror=incompatible-pointer-types -Werror=designated-init -Wno-packed-not-aligned  -DMODULE  -DKBUILD_BASENAME='"gpio_driver.mod"' -DKBUILD_MODNAME='"gpio_driver"' -c -o /home/pi/Projects/raspberrypi-4b/drivers/gpio_driver/gpio_driver.mod.o /home/pi/Projects/raspberrypi-4b/drivers/gpio_driver/gpio_driver.mod.c
 
-source_/home/pi/Projects/raspberrypi-4b/drivers/helloworld/helloworld.o := /home/pi/Projects/raspberrypi-4b/drivers/helloworld/helloworld.c
+source_/home/pi/Projects/raspberrypi-4b/drivers/gpio_driver/gpio_driver.mod.o := /home/pi/Projects/raspberrypi-4b/drivers/gpio_driver/gpio_driver.mod.c
 
-deps_/home/pi/Projects/raspberrypi-4b/drivers/helloworld/helloworld.o := \
+deps_/home/pi/Projects/raspberrypi-4b/drivers/gpio_driver/gpio_driver.mod.o := \
+    $(wildcard include/config/module/unload.h) \
+    $(wildcard include/config/retpoline.h) \
   include/linux/kconfig.h \
     $(wildcard include/config/cc/version/text.h) \
     $(wildcard include/config/cpu/big/endian.h) \
@@ -15,43 +17,8 @@ deps_/home/pi/Projects/raspberrypi-4b/drivers/helloworld/helloworld.o := \
   include/linux/compiler_attributes.h \
   include/linux/compiler-gcc.h \
     $(wildcard include/config/arm64.h) \
-    $(wildcard include/config/retpoline.h) \
     $(wildcard include/config/arch/use/builtin/bswap.h) \
     $(wildcard include/config/kcov.h) \
-  include/linux/init.h \
-    $(wildcard include/config/have/arch/prel32/relocations.h) \
-    $(wildcard include/config/strict/kernel/rwx.h) \
-    $(wildcard include/config/strict/module/rwx.h) \
-  include/linux/compiler.h \
-    $(wildcard include/config/trace/branch/profiling.h) \
-    $(wildcard include/config/profile/all/branches.h) \
-    $(wildcard include/config/stack/validation.h) \
-  include/linux/compiler_types.h \
-  arch/arm/include/generated/asm/rwonce.h \
-  include/asm-generic/rwonce.h \
-  include/linux/kasan-checks.h \
-    $(wildcard include/config/kasan.h) \
-  include/linux/types.h \
-    $(wildcard include/config/have/uid16.h) \
-    $(wildcard include/config/uid16.h) \
-    $(wildcard include/config/arch/dma/addr/t/64bit.h) \
-    $(wildcard include/config/phys/addr/t/64bit.h) \
-    $(wildcard include/config/64bit.h) \
-  include/uapi/linux/types.h \
-  arch/arm/include/uapi/asm/types.h \
-  include/asm-generic/int-ll64.h \
-  include/uapi/asm-generic/int-ll64.h \
-  arch/arm/include/generated/uapi/asm/bitsperlong.h \
-  include/asm-generic/bitsperlong.h \
-  include/uapi/asm-generic/bitsperlong.h \
-  include/uapi/linux/posix_types.h \
-  include/linux/stddef.h \
-  include/uapi/linux/stddef.h \
-  arch/arm/include/uapi/asm/posix_types.h \
-  include/uapi/asm-generic/posix_types.h \
-  include/linux/kcsan-checks.h \
-    $(wildcard include/config/kcsan.h) \
-    $(wildcard include/config/kcsan/ignore/atomics.h) \
   include/linux/module.h \
     $(wildcard include/config/modules.h) \
     $(wildcard include/config/sysfs.h) \
@@ -71,11 +38,29 @@ deps_/home/pi/Projects/raspberrypi-4b/drivers/helloworld/helloworld.o := \
     $(wildcard include/config/ftrace/mcount/record.h) \
     $(wildcard include/config/kprobes.h) \
     $(wildcard include/config/have/static/call/inline.h) \
-    $(wildcard include/config/module/unload.h) \
     $(wildcard include/config/constructors.h) \
     $(wildcard include/config/function/error/injection.h) \
   include/linux/list.h \
     $(wildcard include/config/debug/list.h) \
+  include/linux/types.h \
+    $(wildcard include/config/have/uid16.h) \
+    $(wildcard include/config/uid16.h) \
+    $(wildcard include/config/arch/dma/addr/t/64bit.h) \
+    $(wildcard include/config/phys/addr/t/64bit.h) \
+    $(wildcard include/config/64bit.h) \
+  include/uapi/linux/types.h \
+  arch/arm/include/uapi/asm/types.h \
+  include/asm-generic/int-ll64.h \
+  include/uapi/asm-generic/int-ll64.h \
+  arch/arm/include/generated/uapi/asm/bitsperlong.h \
+  include/asm-generic/bitsperlong.h \
+  include/uapi/asm-generic/bitsperlong.h \
+  include/uapi/linux/posix_types.h \
+  include/linux/stddef.h \
+  include/uapi/linux/stddef.h \
+  include/linux/compiler_types.h \
+  arch/arm/include/uapi/asm/posix_types.h \
+  include/uapi/asm-generic/posix_types.h \
   include/linux/poison.h \
     $(wildcard include/config/illegal/pointer/value.h) \
     $(wildcard include/config/page/poisoning/zero.h) \
@@ -98,8 +83,20 @@ deps_/home/pi/Projects/raspberrypi-4b/drivers/helloworld/helloworld.o := \
   include/linux/export.h \
     $(wildcard include/config/modversions.h) \
     $(wildcard include/config/module/rel/crcs.h) \
+    $(wildcard include/config/have/arch/prel32/relocations.h) \
     $(wildcard include/config/trim/unused/ksyms.h) \
   arch/arm/include/asm/linkage.h \
+  include/linux/compiler.h \
+    $(wildcard include/config/trace/branch/profiling.h) \
+    $(wildcard include/config/profile/all/branches.h) \
+    $(wildcard include/config/stack/validation.h) \
+  arch/arm/include/generated/asm/rwonce.h \
+  include/asm-generic/rwonce.h \
+  include/linux/kasan-checks.h \
+    $(wildcard include/config/kasan.h) \
+  include/linux/kcsan-checks.h \
+    $(wildcard include/config/kcsan.h) \
+    $(wildcard include/config/kcsan/ignore/atomics.h) \
   include/linux/bitops.h \
   include/linux/bits.h \
   include/vdso/bits.h \
@@ -198,6 +195,9 @@ deps_/home/pi/Projects/raspberrypi-4b/drivers/helloworld/helloworld.o := \
     $(wildcard include/config/printk.h) \
     $(wildcard include/config/dynamic/debug.h) \
     $(wildcard include/config/dynamic/debug/core.h) \
+  include/linux/init.h \
+    $(wildcard include/config/strict/kernel/rwx.h) \
+    $(wildcard include/config/strict/module/rwx.h) \
   include/linux/kern_levels.h \
   include/linux/cache.h \
     $(wildcard include/config/arch/has/cache/line/size.h) \
@@ -581,7 +581,13 @@ deps_/home/pi/Projects/raspberrypi-4b/drivers/helloworld/helloworld.o := \
     $(wildcard include/config/have/mod/arch/specific.h) \
     $(wildcard include/config/modules/use/elf/rel.h) \
     $(wildcard include/config/modules/use/elf/rela.h) \
+  include/linux/build-salt.h \
+    $(wildcard include/config/build/salt.h) \
+  include/linux/elfnote.h \
+  include/linux/vermagic.h \
+  include/generated/utsrelease.h \
+  arch/arm/include/asm/vermagic.h \
 
-/home/pi/Projects/raspberrypi-4b/drivers/helloworld/helloworld.o: $(deps_/home/pi/Projects/raspberrypi-4b/drivers/helloworld/helloworld.o)
+/home/pi/Projects/raspberrypi-4b/drivers/gpio_driver/gpio_driver.mod.o: $(deps_/home/pi/Projects/raspberrypi-4b/drivers/gpio_driver/gpio_driver.mod.o)
 
-$(deps_/home/pi/Projects/raspberrypi-4b/drivers/helloworld/helloworld.o):
+$(deps_/home/pi/Projects/raspberrypi-4b/drivers/gpio_driver/gpio_driver.mod.o):

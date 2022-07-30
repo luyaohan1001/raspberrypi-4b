@@ -1,3 +1,7 @@
+// To load this overlay
+// dtc example-overlay.dts -o example-overlay.dtbo
+// dtoverlay example-overlay.dtbo
+// this device is availavle in ls /proc/device-tree 
 /dts-v1/;
 /plugin/;
 
@@ -6,11 +10,11 @@
     fragment@0 {
         target-path = "/";
         __overlay__ {
-            my_device {
-                compatible = "brightlight, mydev";
-                status = "okay";
-                label = "test";
-                my_value = <12>;
+            my_device { // name of the overlay is "my_device"
+                compatible = "brightlight, mydev"; // /proc/device-tree/my_device/compatible
+                status = "okay";  // /proc/device-tree/my_device/status
+                label = "test"; // /proc/device-tree/my_device/label
+                my_value = <1001>>; // /proc/device-tree/my_device/my_value
             };
         };
     };

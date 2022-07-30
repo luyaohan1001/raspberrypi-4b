@@ -1,0 +1,1 @@
+cmd_/home/pi/Projects/raspberrypi-4b/drivers/i2c-oled/oled_driver.ko := arm-linux-gnueabihf-ld -r  -EL  --build-id=sha1  -T scripts/module.lds -o /home/pi/Projects/raspberrypi-4b/drivers/i2c-oled/oled_driver.ko /home/pi/Projects/raspberrypi-4b/drivers/i2c-oled/oled_driver.o /home/pi/Projects/raspberrypi-4b/drivers/i2c-oled/oled_driver.mod.o;  true

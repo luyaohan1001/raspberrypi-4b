@@ -1,14 +1,17 @@
+
 #include <linux/module.h>
 #include <linux/init.h>
 #include <linux/proc_fs.h>
 #include <linux/i2c.h>
+#include <linux/delay.h>
+#include "datalink.h"
 
 /* Meta Information */
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Luyao Han");
 MODULE_DESCRIPTION("Linux kernel module driver for ssd1306 oled display");
 
-static struct i2c_client *oled_client;
+struct i2c_client *oled_client;
 
 static int my_oled_probe(struct i2c_client *client, const struct i2c_device_id *id);
 static int my_oled_remove(struct i2c_client *client);
@@ -17,14 +20,15 @@ static int my_oled_remove(struct i2c_client *client);
 static struct of_device_id my_driver_id[] = {
     {
         .compatible = "brightlight, my_oled"
-    }, { }
+    }, { /*sentinel*/ }
 };
 
 MODULE_DEVICE_TABLE(of, my_driver_id);
 
 static struct i2c_device_id my_oled[] = {
-    {"my_oled", 0},
-    {}
+    {
+        "my_oled", 0
+    }, { /*sentinel*/ }
 };
 MODULE_DEVICE_TABLE(i2c, my_oled);
 
@@ -38,6 +42,9 @@ static struct i2c_driver my_driver = {
     },
 };
 
+
+
+/* Entery in proc file system. This is so that this driver can be interacted with user space program. */
 static struct proc_dir_entry *proc_file;
 
 static ssize_t my_write(struct file *File, const char *user_buffer, size_t count, loff_t *offs) {
@@ -60,6 +67,7 @@ static struct proc_ops fops = {
     .proc_read = my_read,
 };
 
+
 static int my_oled_probe(struct i2c_client *client, const struct i2c_device_id *id) {
     printk("Entered my_oled_probe function\n");
     if (client->addr != 0x3c) {
@@ -69,7 +77,21 @@ static int my_oled_probe(struct i2c_client *client, const struct i2c_device_id *
 
     oled_client = client;
     proc_file = proc_create("my_oled", 0666, NULL, &fops);
-    return 0; 
+
+
+    SSD1306_DisplayInit();
+  
+    //Set cursor
+    // SSD1306_SetCursor(0,0);
+    // SSD1306_StartScrollHorizontal( true, 0, 2);
+
+    //Write String to OLED
+    // SSD1306_String("Welcome\nTo\nEmbeTronicX\n\n");
+  
+    pr_info("OLED Probed!!!\n");
+
+
+    return 0;
 }
 
 static int my_oled_remove(struct i2c_client *client) {

@@ -1,8 +1,12 @@
-obj-m := oled-driver.o
+# Target oled_driver.ko
+obj-m := oled_driver.o
+
+# The target has two subobjects
+oled_driver-objs := driver.o datalink.o
 
 KERNEL_DIR ?= /usr/src/linux-headers-5.10.103-v7l+/
 
-
+# (C)hange to kernel directory, M is a variable pointing to output directory not a flag of make. 
 all:
 	make -C $(KERNEL_DIR) \
 		ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- \

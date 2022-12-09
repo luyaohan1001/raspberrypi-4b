@@ -1,1 +1,0 @@
-cmd_/home/pi/Projects/raspberrypi-4b/drivers/i2c-oled/Module.symvers := sed 's/ko$$/o/' /home/pi/Projects/raspberrypi-4b/drivers/i2c-oled/modules.order | scripts/mod/modpost -m -a   -o /home/pi/Projects/raspberrypi-4b/drivers/i2c-oled/Module.symvers -e -i Module.symvers   -T -

@@ -1,5 +1,0 @@
-# To load module
-	$ insmod helloworld-withparam.ko parameter
-
-# To remove module
-	$ rmmod helloworld-withparam.ko 

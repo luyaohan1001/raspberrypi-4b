@@ -1,5 +1,6 @@
 #include <linux/init.h>
 #include <linux/module.h>
+
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Luyao Han (luyaohan1001@gmail.com)");
 MODULE_DESCRIPTION("Hello World module on raspberry pi 4B");

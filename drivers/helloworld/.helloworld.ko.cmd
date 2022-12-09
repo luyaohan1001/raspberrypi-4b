@@ -1,1 +1,0 @@
-cmd_/home/pi/Projects/raspberrypi-4b/drivers/helloworld/helloworld.ko := arm-linux-gnueabihf-ld -r  -EL  --build-id=sha1  -T scripts/module.lds -o /home/pi/Projects/raspberrypi-4b/drivers/helloworld/helloworld.ko /home/pi/Projects/raspberrypi-4b/drivers/helloworld/helloworld.o /home/pi/Projects/raspberrypi-4b/drivers/helloworld/helloworld.mod.o;  true

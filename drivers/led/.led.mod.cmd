@@ -1,1 +1,0 @@
-cmd_/home/luyaohan1001/Projects/raspberrypi-4b/drivers/led/led.mod := { echo  /home/luyaohan1001/Projects/raspberrypi-4b/drivers/led/led.o;  echo; } > /home/luyaohan1001/Projects/raspberrypi-4b/drivers/led/led.mod

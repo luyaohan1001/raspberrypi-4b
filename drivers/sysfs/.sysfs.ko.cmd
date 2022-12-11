@@ -1,0 +1,1 @@
+cmd_/home/pi/Projects/raspberrypi-4b/drivers/sysfs/sysfs.ko := arm-linux-gnueabihf-ld -r  -EL  --build-id=sha1  -T scripts/module.lds -o /home/pi/Projects/raspberrypi-4b/drivers/sysfs/sysfs.ko /home/pi/Projects/raspberrypi-4b/drivers/sysfs/sysfs.o /home/pi/Projects/raspberrypi-4b/drivers/sysfs/sysfs.mod.o;  true

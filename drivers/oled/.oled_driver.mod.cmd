@@ -1,0 +1,1 @@
+cmd_/home/pi/Projects/raspberrypi-4b/drivers/oled/oled_driver.mod := { echo  /home/pi/Projects/raspberrypi-4b/drivers/oled/driver.o /home/pi/Projects/raspberrypi-4b/drivers/oled/datalink.o;  echo; } > /home/pi/Projects/raspberrypi-4b/drivers/oled/oled_driver.mod

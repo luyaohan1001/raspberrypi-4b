@@ -1,0 +1,27 @@
+Test on Linux raspberrypi 5.\+10.\+103-\/v7l+ \#1529 S\+MP Tue Mar 8 12\+:24\+:00 G\+MT 2022 armv7l G\+N\+U/\+Linux Raspberry Pi Buster.
+
+\paragraph*{To compile}
+
+Install the kernel headers. \$ sudo apt install raspberrypi-\/kernel-\/headers
+
+Compile \$ sudo make
+
+\paragraph*{To run\+:}
+
+
+\begin{DoxyEnumerate}
+\item First apply device tree overlay by
+
+\$ sudo make dtoverlay
+\item Insert the kernel module
+
+\$ sudo make insmod
+\end{DoxyEnumerate}
+
+\paragraph*{To check for printk log\+:}
+
+\$ dmesg
+
+\paragraph*{To remove the kernel module\+:}
+
+\$ sudo dmesg 

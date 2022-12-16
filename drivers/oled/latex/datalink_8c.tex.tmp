@@ -1,0 +1,58 @@
+\hypertarget{datalink_8c}{}\section{datalink.\+c File Reference}
+\label{datalink_8c}\index{datalink.\+c@{datalink.\+c}}
+
+
+Datalink layer implementation for S\+S\+D1306 O\+L\+ED Driver, S\+M\+Bus-\/based operations.  
+
+
+{\ttfamily \#include $<$linux/module.\+h$>$}\newline
+{\ttfamily \#include $<$linux/init.\+h$>$}\newline
+{\ttfamily \#include $<$linux/i2c.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}datalink.\+h\char`\"{}}\newline
+Include dependency graph for datalink.\+c\+:
+% FIG 0
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{datalink_8c_a3b8456a2fcf98356facf69ecbaf5100c}{i2c\+\_\+write} (unsigned char $\ast$pdata, unsigned int len)
+\begin{DoxyCompactList}\small\item\em Write buffer to i2c client. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{datalink_8c_a964dc121c15733bf871ebd413cf6f2f4}\label{datalink_8c_a964dc121c15733bf871ebd413cf6f2f4}} 
+void {\bfseries ssd1306\+\_\+write} (bool is\+\_\+cmd, unsigned char data)
+\item 
+\mbox{\Hypertarget{datalink_8c_a0e4a7bf4e7cf384b997ed75594697fd8}\label{datalink_8c_a0e4a7bf4e7cf384b997ed75594697fd8}} 
+int {\bfseries ssd1306\+\_\+display\+\_\+init} (void)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{datalink_8c_a77ca3c5047325f153b5679bce4576b39}\label{datalink_8c_a77ca3c5047325f153b5679bce4576b39}} 
+struct i2c\+\_\+client $\ast$ {\bfseries i2c\+\_\+client}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Datalink layer implementation for S\+S\+D1306 O\+L\+ED Driver, S\+M\+Bus-\/based operations. 
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{datalink_8c_a3b8456a2fcf98356facf69ecbaf5100c}\label{datalink_8c_a3b8456a2fcf98356facf69ecbaf5100c}} 
+\index{datalink.\+c@{datalink.\+c}!i2c\+\_\+write@{i2c\+\_\+write}}
+\index{i2c\+\_\+write@{i2c\+\_\+write}!datalink.\+c@{datalink.\+c}}
+\subsubsection{\texorpdfstring{i2c\+\_\+write()}{i2c\_write()}}
+{\footnotesize\ttfamily int i2c\+\_\+write (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{pdata,  }\item[{unsigned int}]{len }\end{DoxyParamCaption})}
+
+
+
+Write buffer to i2c client. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pdata} & Pointer to the data being sent. \\
+\hline
+{\em len} & Length of the data being sent. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+The i2c\+\_\+master\+\_\+send takes care of S\+T\+A\+RT signal, addressing, R/W, and S\+T\+OP signal in one function. 
+\end{DoxyNote}

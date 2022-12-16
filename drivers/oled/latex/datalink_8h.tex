@@ -1,0 +1,41 @@
+\hypertarget{datalink_8h}{}\section{datalink.\+h File Reference}
+\label{datalink_8h}\index{datalink.\+h@{datalink.\+h}}
+{\ttfamily \#include $<$linux/module.\+h$>$}\newline
+{\ttfamily \#include $<$linux/init.\+h$>$}\newline
+{\ttfamily \#include $<$linux/proc\+\_\+fs.\+h$>$}\newline
+{\ttfamily \#include $<$linux/i2c.\+h$>$}\newline
+{\ttfamily \#include $<$linux/delay.\+h$>$}\newline
+Include dependency graph for datalink.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{datalink_8h_a311341a58b9d8c6a8da42662b81c006f}{i2c\+\_\+write} (unsigned char $\ast$buf, unsigned int len)
+\item 
+void \hyperlink{datalink_8h_a964dc121c15733bf871ebd413cf6f2f4}{ssd1306\+\_\+write} (bool is\+\_\+cmd, unsigned char data)
+\item 
+int \hyperlink{datalink_8h_a0e4a7bf4e7cf384b997ed75594697fd8}{ssd1306\+\_\+display\+\_\+init} (void)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{datalink_8h_a311341a58b9d8c6a8da42662b81c006f}\label{datalink_8h_a311341a58b9d8c6a8da42662b81c006f}} 
+\index{datalink.\+h@{datalink.\+h}!i2c\+\_\+write@{i2c\+\_\+write}}
+\index{i2c\+\_\+write@{i2c\+\_\+write}!datalink.\+h@{datalink.\+h}}
+\subsubsection{\texorpdfstring{i2c\+\_\+write()}{i2c\_write()}}
+{\footnotesize\ttfamily int i2c\+\_\+write (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{buf,  }\item[{unsigned int}]{len }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{datalink_8h_a0e4a7bf4e7cf384b997ed75594697fd8}\label{datalink_8h_a0e4a7bf4e7cf384b997ed75594697fd8}} 
+\index{datalink.\+h@{datalink.\+h}!ssd1306\+\_\+display\+\_\+init@{ssd1306\+\_\+display\+\_\+init}}
+\index{ssd1306\+\_\+display\+\_\+init@{ssd1306\+\_\+display\+\_\+init}!datalink.\+h@{datalink.\+h}}
+\subsubsection{\texorpdfstring{ssd1306\+\_\+display\+\_\+init()}{ssd1306\_display\_init()}}
+{\footnotesize\ttfamily int ssd1306\+\_\+display\+\_\+init (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{datalink_8h_a964dc121c15733bf871ebd413cf6f2f4}\label{datalink_8h_a964dc121c15733bf871ebd413cf6f2f4}} 
+\index{datalink.\+h@{datalink.\+h}!ssd1306\+\_\+write@{ssd1306\+\_\+write}}
+\index{ssd1306\+\_\+write@{ssd1306\+\_\+write}!datalink.\+h@{datalink.\+h}}
+\subsubsection{\texorpdfstring{ssd1306\+\_\+write()}{ssd1306\_write()}}
+{\footnotesize\ttfamily void ssd1306\+\_\+write (\begin{DoxyParamCaption}\item[{bool}]{is\+\_\+cmd,  }\item[{unsigned char}]{data }\end{DoxyParamCaption})}
+

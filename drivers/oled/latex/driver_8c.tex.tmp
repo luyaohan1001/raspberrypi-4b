@@ -1,0 +1,156 @@
+\hypertarget{driver_8c}{}\section{driver.\+c File Reference}
+\label{driver_8c}\index{driver.\+c@{driver.\+c}}
+
+
+Kernel layers i2c device driver implementation.  
+
+
+{\ttfamily \#include $<$linux/module.\+h$>$}\newline
+{\ttfamily \#include $<$linux/init.\+h$>$}\newline
+{\ttfamily \#include $<$linux/proc\+\_\+fs.\+h$>$}\newline
+{\ttfamily \#include $<$linux/i2c.\+h$>$}\newline
+{\ttfamily \#include $<$linux/delay.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}datalink.\+h\char`\"{}}\newline
+Include dependency graph for driver.\+c\+:
+% FIG 0
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{driver_8c_ad94b36675e7eb067ea3ce6ff9e244a44}\label{driver_8c_ad94b36675e7eb067ea3ce6ff9e244a44}} 
+{\bfseries M\+O\+D\+U\+L\+E\+\_\+\+L\+I\+C\+E\+N\+SE} (\char`\"{}G\+PL\char`\"{})
+\item 
+\mbox{\Hypertarget{driver_8c_a594adc15634a4e56dcb80198b964a227}\label{driver_8c_a594adc15634a4e56dcb80198b964a227}} 
+{\bfseries M\+O\+D\+U\+L\+E\+\_\+\+A\+U\+T\+H\+OR} (\char`\"{}Luyao Han\char`\"{})
+\item 
+\mbox{\Hypertarget{driver_8c_ae15b5df66e4e05b36899a90a8a9ff55d}\label{driver_8c_ae15b5df66e4e05b36899a90a8a9ff55d}} 
+{\bfseries M\+O\+D\+U\+L\+E\+\_\+\+D\+E\+S\+C\+R\+I\+P\+T\+I\+ON} (\char`\"{}Linux kernel module driver for ssd1306 oled display\char`\"{})
+\item 
+static int \hyperlink{driver_8c_ac2ce7e7fa1f20b7193e04c34583885a2}{driver\+\_\+on\+\_\+probe} (struct i2c\+\_\+client $\ast$client, const struct i2c\+\_\+device\+\_\+id $\ast$device\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Callback function on probing (driver-\/device binding) of the device driver. \end{DoxyCompactList}\item 
+static int \hyperlink{driver_8c_a1e690de4cdba34c6389cf7bdc76e13fa}{driver\+\_\+on\+\_\+remove} (struct i2c\+\_\+client $\ast$client)
+\begin{DoxyCompactList}\small\item\em Callback function on the removal of the device driver. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{driver_8c_a548ae877a02ea5cdaa123c660093715a}\label{driver_8c_a548ae877a02ea5cdaa123c660093715a}} 
+{\bfseries M\+O\+D\+U\+L\+E\+\_\+\+D\+E\+V\+I\+C\+E\+\_\+\+T\+A\+B\+LE} (of, \hyperlink{driver_8c_a64b4b434c7534f93502b43aef90d8b62}{my\+\_\+driver\+\_\+id})
+\item 
+\mbox{\Hypertarget{driver_8c_a8039b804ca38fe27ebaba76416a5dd53}\label{driver_8c_a8039b804ca38fe27ebaba76416a5dd53}} 
+{\bfseries M\+O\+D\+U\+L\+E\+\_\+\+D\+E\+V\+I\+C\+E\+\_\+\+T\+A\+B\+LE} (i2c, \hyperlink{driver_8c_a43765295ecc04729376fab5e4e243172}{driver\+\_\+device\+\_\+id})
+\item 
+\mbox{\Hypertarget{driver_8c_a8b8d841766bfd646b66e86cc4c3e4d24}\label{driver_8c_a8b8d841766bfd646b66e86cc4c3e4d24}} 
+{\bfseries module\+\_\+i2c\+\_\+driver} (my\+\_\+driver)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{driver_8c_a5cb453194d71132a1e497f114784c0d9}\label{driver_8c_a5cb453194d71132a1e497f114784c0d9}} 
+struct i2c\+\_\+client $\ast$ {\bfseries oled\+\_\+client}
+\item 
+static struct of\+\_\+device\+\_\+id \hyperlink{driver_8c_a64b4b434c7534f93502b43aef90d8b62}{my\+\_\+driver\+\_\+id} \mbox{[}$\,$\mbox{]}
+\begin{DoxyCompactList}\small\item\em Specifies the \char`\"{}.\+compatible\char`\"{} strings. It should store the same value of the corresponding device tree node\textquotesingle{}s \char`\"{}compatible\char`\"{} field. In this case the oled.\+dts in the same directory has the matching value. When the .compatible field here matches the device tree, the I2C device will be probed. \end{DoxyCompactList}\item 
+static struct i2c\+\_\+device\+\_\+id \hyperlink{driver_8c_a43765295ecc04729376fab5e4e243172}{driver\+\_\+device\+\_\+id} \mbox{[}$\,$\mbox{]}
+\begin{DoxyCompactList}\small\item\em This array is pointed by the id\+\_\+table field of struct i2c\+\_\+driver. The id\+\_\+table is used for non-\/\+DT based probing of I2\+C-\/devices. \end{DoxyCompactList}\item 
+static struct i2c\+\_\+driver {\bfseries my\+\_\+driver}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Kernel layers i2c device driver implementation. 
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{driver_8c_ac2ce7e7fa1f20b7193e04c34583885a2}\label{driver_8c_ac2ce7e7fa1f20b7193e04c34583885a2}} 
+\index{driver.\+c@{driver.\+c}!driver\+\_\+on\+\_\+probe@{driver\+\_\+on\+\_\+probe}}
+\index{driver\+\_\+on\+\_\+probe@{driver\+\_\+on\+\_\+probe}!driver.\+c@{driver.\+c}}
+\subsubsection{\texorpdfstring{driver\+\_\+on\+\_\+probe()}{driver\_on\_probe()}}
+{\footnotesize\ttfamily static int driver\+\_\+on\+\_\+probe (\begin{DoxyParamCaption}\item[{struct i2c\+\_\+client $\ast$}]{client,  }\item[{const struct i2c\+\_\+device\+\_\+id $\ast$}]{device\+\_\+id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Callback function on probing (driver-\/device binding) of the device driver. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em client} & Pointer to the i2c\+\_\+client instance. \\
+\hline
+{\em device\+\_\+id} & The device id to be probed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Error status. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{driver_8c_a1e690de4cdba34c6389cf7bdc76e13fa}\label{driver_8c_a1e690de4cdba34c6389cf7bdc76e13fa}} 
+\index{driver.\+c@{driver.\+c}!driver\+\_\+on\+\_\+remove@{driver\+\_\+on\+\_\+remove}}
+\index{driver\+\_\+on\+\_\+remove@{driver\+\_\+on\+\_\+remove}!driver.\+c@{driver.\+c}}
+\subsubsection{\texorpdfstring{driver\+\_\+on\+\_\+remove()}{driver\_on\_remove()}}
+{\footnotesize\ttfamily static int driver\+\_\+on\+\_\+remove (\begin{DoxyParamCaption}\item[{struct i2c\+\_\+client $\ast$}]{client }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Callback function on the removal of the device driver. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em client} & Pointer to the i2c\+\_\+client instance. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Error status; 
+\end{DoxyReturn}
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{driver_8c_a43765295ecc04729376fab5e4e243172}\label{driver_8c_a43765295ecc04729376fab5e4e243172}} 
+\index{driver.\+c@{driver.\+c}!driver\+\_\+device\+\_\+id@{driver\+\_\+device\+\_\+id}}
+\index{driver\+\_\+device\+\_\+id@{driver\+\_\+device\+\_\+id}!driver.\+c@{driver.\+c}}
+\subsubsection{\texorpdfstring{driver\+\_\+device\+\_\+id}{driver\_device\_id}}
+{\footnotesize\ttfamily struct i2c\+\_\+device\+\_\+id driver\+\_\+device\+\_\+id\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \{
+        \textcolor{stringliteral}{"oled\_device"}, 0
+    \}, \{  \}
+\}
+\end{DoxyCode}
+
+
+This array is pointed by the id\+\_\+table field of struct i2c\+\_\+driver. The id\+\_\+table is used for non-\/\+DT based probing of I2\+C-\/devices. 
+
+\mbox{\Hypertarget{driver_8c_a9c6b4558b61428846bf07f5ed91cdf06}\label{driver_8c_a9c6b4558b61428846bf07f5ed91cdf06}} 
+\index{driver.\+c@{driver.\+c}!my\+\_\+driver@{my\+\_\+driver}}
+\index{my\+\_\+driver@{my\+\_\+driver}!driver.\+c@{driver.\+c}}
+\subsubsection{\texorpdfstring{my\+\_\+driver}{my\_driver}}
+{\footnotesize\ttfamily struct i2c\+\_\+driver my\+\_\+driver\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    
+    .probe = \hyperlink{driver_8c_ac2ce7e7fa1f20b7193e04c34583885a2}{driver\_on\_probe},
+    .remove = \hyperlink{driver_8c_a1e690de4cdba34c6389cf7bdc76e13fa}{driver\_on\_remove},
+    .id\_table = \hyperlink{driver_8c_a43765295ecc04729376fab5e4e243172}{driver\_device\_id},
+    .driver = \{
+        .name = \textcolor{stringliteral}{"oled\_device"},
+        .of\_match\_table = \hyperlink{driver_8c_a64b4b434c7534f93502b43aef90d8b62}{my\_driver\_id},
+    \},
+\}
+\end{DoxyCode}
+\mbox{\Hypertarget{driver_8c_a64b4b434c7534f93502b43aef90d8b62}\label{driver_8c_a64b4b434c7534f93502b43aef90d8b62}} 
+\index{driver.\+c@{driver.\+c}!my\+\_\+driver\+\_\+id@{my\+\_\+driver\+\_\+id}}
+\index{my\+\_\+driver\+\_\+id@{my\+\_\+driver\+\_\+id}!driver.\+c@{driver.\+c}}
+\subsubsection{\texorpdfstring{my\+\_\+driver\+\_\+id}{my\_driver\_id}}
+{\footnotesize\ttfamily struct of\+\_\+device\+\_\+id my\+\_\+driver\+\_\+id\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{
+    \{
+        .compatible = \textcolor{stringliteral}{"ssd1306, oled\_device"}
+    \}, \{  \}
+\}
+\end{DoxyCode}
+
+
+Specifies the \char`\"{}.\+compatible\char`\"{} strings. It should store the same value of the corresponding device tree node\textquotesingle{}s \char`\"{}compatible\char`\"{} field. In this case the oled.\+dts in the same directory has the matching value. When the .compatible field here matches the device tree, the I2C device will be probed. 
+

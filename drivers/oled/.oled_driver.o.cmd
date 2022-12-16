@@ -1,0 +1,1 @@
+cmd_/home/pi/Projects/raspberrypi-4b/drivers/oled/oled_driver.o := arm-linux-gnueabihf-ld  -EL    -r -o /home/pi/Projects/raspberrypi-4b/drivers/oled/oled_driver.o /home/pi/Projects/raspberrypi-4b/drivers/oled/driver.o /home/pi/Projects/raspberrypi-4b/drivers/oled/datalink.o
